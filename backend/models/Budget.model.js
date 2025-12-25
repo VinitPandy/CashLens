@@ -10,7 +10,6 @@ const BudgetSchema = new mongoose.Schema({
     limit: {
         type: Number,
         required: true,
-        maxLength: 50
     }
 }, {timestamps: true})
 

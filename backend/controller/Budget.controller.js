@@ -2,7 +2,7 @@ const BudgetSchema = require("../models/Budget.model")
 
 exports.addBudget = async (req, res) => {
     const {category, limit}  = req.body
-    const userId = req.user; 
+    const userId = req.user.id || req.user._id || req.user; 
     
     try {
         if(!category || !limit) return res.status(400).json({message: 'All fields required!'})
