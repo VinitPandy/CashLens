@@ -1,6 +1,7 @@
 import { useState } from "react"; // 1. Import useState
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
+import Landing from "./pages/LandingPage";
 import Topbar from "./components/Topbar";
 import Dashboard from "./pages/Dashboard";
 import Expenses from "./pages/Expenses";
@@ -52,11 +53,12 @@ export default function App() {
               </div>
             </div>
         ) : (
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="*" element={<Navigate to="/login" />} />
-            </Routes>
+           <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
         )}
         
       </div>
