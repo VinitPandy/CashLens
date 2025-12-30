@@ -1,5 +1,5 @@
-import { useState } from "react"; // 1. Import useState
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useState,useEffect} from "react"; // 1. Import useState
+import { BrowserRouter as Router, Routes, Route, Navigate,useLocation} from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Landing from "./pages/LandingPage";
 import Topbar from "./components/Topbar";
@@ -12,16 +12,19 @@ import Signup from "./pages/SignUp";
 import { useGlobalContext } from "./context/globalContext";
 
 export default function App() {
-  const { token } = useGlobalContext();
-  
+  const location = useLocation();
+  const { token ,setError} = useGlobalContext();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  useEffect(() => {
+    setError(null); 
+  }, [location.pathname]);
+
   return (
-    <Router>
       <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-950 to-black text-white relative">
         
         {token ? (
@@ -62,6 +65,5 @@ export default function App() {
         )}
         
       </div>
-    </Router>
   );
 }

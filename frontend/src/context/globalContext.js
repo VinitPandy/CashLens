@@ -10,7 +10,8 @@ export const GlobalProvider = ({children}) => {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null); 
     const [token, setToken] = useState(localStorage.getItem('token') || null);
-    
+    const [aiAdvice, setAiAdvice] = useState(null);
+    const [aiLoading, setAiLoading] = useState(false);
     const [incomes, setIncomes] = useState([])
     const [expenses, setExpenses] = useState([])
     const [budgets, setBudgets] = useState([])
@@ -22,7 +23,7 @@ export const GlobalProvider = ({children}) => {
             const res = await axios.post(`${BASE_URL}/auth/login`, { email, password });
 
             localStorage.setItem('token', res.data.token);
-            localStorage.setItem('user', JSON.stringify(res.data.user)); // <--- CHANGED
+            localStorage.setItem('user', JSON.stringify(res.data.user)); 
             
             setToken(res.data.token);
             setUser(res.data.user);
@@ -151,6 +152,17 @@ export const GlobalProvider = ({children}) => {
             handleRequestError(err);
         }
     }
+    
+    const getAdvice = async () => {
+    setAiLoading(true);
+    try {
+        const response = await axios.get(`${BASE_URL}/financial-advice`); 
+        setAiAdvice(response.data.advice);
+    } catch (err) {
+        setAiAdvice("Could not generate advice right now.");
+    }
+    setAiLoading(false);
+    }
 
     const totalIncome = () => incomes.reduce((acc, curr) => acc + curr.amount, 0)
     const totalExpense = () => expenses.reduce((acc, curr) => acc + curr.amount, 0)
@@ -161,8 +173,8 @@ export const GlobalProvider = ({children}) => {
             addIncome, getIncomes, incomes, deleteIncome,
             addExpense, getExpenses, expenses, deleteExpense,
             addBudget, getBudgets, budgets, deleteBudget,
-            totalIncome, totalExpense, totalBalance,
-            error, setError,
+            totalIncome, totalExpense, totalBalance,getAdvice,
+            aiAdvice,aiLoading,error, setError,
             user, token, login, signup, logout
         }}>
             {children}
