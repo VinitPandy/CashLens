@@ -1,8 +1,8 @@
 // 1. LOAD ENV VARIABLES FIRST
 require('dotenv').config();
 
-const IncomeSchema = require("../models/Income.Model");
-const ExpenseSchema = require("../models/Expense.Model");
+const IncomeSchema = require("../models/Income.model");
+const ExpenseSchema = require("../models/Expense.model");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // 2. Initialize Gemini with the loaded key
