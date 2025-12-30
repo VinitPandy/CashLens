@@ -18,10 +18,12 @@ const expenseRoute = require('./routes/Expense.route');
 const incomeRoute = require('./routes/Income.route');
 const budgetRoute = require('./routes/Budget.route');
 const authRoute = require('./routes/Auth.route'); 
+const AiRoute = require('./routes/Ai.route');
 
 app.use('/api/v1', expenseRoute);
 app.use('/api/v1', incomeRoute);
 app.use('/api/v1', budgetRoute);
+app.use('/api/v1', AiRoute);
 
 app.use('/api/v1/auth', authRoute);
 
